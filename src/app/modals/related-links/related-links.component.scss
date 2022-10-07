@@ -1,0 +1,62 @@
+.modal-header {
+    background-color: #c0989b3b;
+}
+
+.modal-title {
+    font-size: 1rem;
+    color: #101010;
+    font-family: DINBold;
+    text-transform: capitalize;
+}
+
+.close {
+    span {
+        font-size: 1.2rem;
+    }
+}
+
+h2 {
+    font-size: 1rem;
+    color: #101010;
+    font-family: DINBold, "Open Sans";
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: #101010;
+    font-family: DINBold, 'Open Sans';
+}
+
+.related-link {
+    background-color: #f3f3f3;
+    padding: 10px;
+    font-family: DINregular, 'Open Sans';
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+.link-desc {
+    font-family: DINregular, 'Open Sans';
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+a {
+    color: #154273;
+}
+
+span {
+    float: right;
+    cursor: pointer;
+}
+
+.link-url {
+    word-break: break-all;
+}
+
+.viewport {
+    height: 150px;
+    width: 100%;
+    overflow-x: hidden;
+}

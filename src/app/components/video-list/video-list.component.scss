@@ -1,0 +1,21 @@
+.videos-title{
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+.embed-responsive {
+  position: relative;
+  display: block;
+  width: 98%;
+ margin-top: 10px;
+  overflow: hidden;
+
+}
+
+@media (max-width: 991px) {
+  .embed-responsive {
+  margin-left:3.5%;
+  width: 93%;
+}
+}

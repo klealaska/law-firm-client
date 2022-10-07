@@ -1,0 +1,283 @@
+<div class="inside-container">
+    <section class="discussion-section">
+        <div class="inside-container blog-post-view">
+            <div class="row">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background-color: white; padding-left: 0px;padding-top:0px">
+                        <li class="breadcrumb-item"><a routerLink="/blog-posts">Këndi i
+                diskutimeve</a></li>
+                        <li class="breadcrumb-item" aria-current="page">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- <div class="col-lg-2 col-md-2 col-sm-10"> <span class="breadcrumb-item-2"><a
+                                            routerLink="/blog-posts"><i class="fa fa-chevron-circle-left"
+                                                aria-hidden="true"></i>
+                                         Back</a></span></div> -->
+            <div class="row {{colorOverlay}}">
+                <img *ngIf="imageUrl!=null" class="banner-image " [src]="imageUrl">
+            </div>
+            <!-- <div *ngIf="imageUrl!=null" class="row banner-image {{colorOverlay}} "
+        [style.background-image]="'url('+imageUrl +')'">
+  </div> -->
+            <h3 class=" discussion-section-heading">{{title}}</h3>
+            <div class="row no-margin">
+                <span class="discussion-section-published">Published on {{publishedDate |date}} |
+          Published by &nbsp; </span>
+                <ng-container *ngFor="let author of authors;index as i">
+                    <a *ngIf="author.authorBioLink!=null" href="{{author.authorBioLink}}" target="_blank" class="discussion-section-name author-link">
+            {{author.authorName}}
+          </a>
+
+                    <span *ngIf="author.authorBioLink==null" class="discussion-section-name ">
+            {{author.authorName}}
+          </span><span *ngIf="i < authors.length-1">,</span>
+                </ng-container>
+            </div>
+            <div class="row no-margin" *ngIf="attachments.length>0">
+                <span class="documents-span">Documents :&nbsp;</span>
+                <ng-container *ngFor="let attachment of attachments;index as i">
+                    <a href="{{attachment}}" target="_blank" class="discussion-section-name author-link">
+            Document&nbsp;{{i+1}}
+          </a>
+                    <span *ngIf="i < attachments.length-1">,&nbsp;</span>
+                    <!--  <span *ngIf="author.authorBioLink==''" class="discussion-section-name ">
+            {{author.authorName}}
+          </span> -->
+                </ng-container>
+            </div>
+            <hr>
+
+            <div class="row no-margin">
+                <div class="discussion-section-para" [innerHTML]="description |safeHtml"></div>
+            </div>
+            <div class="row no-margin">
+                <ng-container *ngFor="let tag of tagList">
+                    <span (click)="tagsPage(tag)" class=tags>{{tag.name}}
+          </span>
+                </ng-container>
+            </div>
+            <hr>
+            <!-- <div class="row">
+                <hr class="discussion-section-line">
+            </div> -->
+        </div>
+        <!-- Add comment section -->
+        <div class="row mr-0" *ngIf="userService.isLoggedIn()">
+            <div class="col-lg-1 col-md-1 col-2 comment-header">
+                <img *ngIf="profileImgUrl!=null" class="discussion-section-img" [src]="profileImgUrl">
+                <ngx-avatar *ngIf="profileImgUrl==null" size="38" name="{{user}}"></ngx-avatar>
+            </div>
+            <div class="comment-textarea col-lg-11 col-md-11 col-10">
+                <div class="input-group mb-3 mr-3">
+                    <textarea [(ngModel)]="commentContent" type="text" name="text" class="form-control discussion-form-control" placeholder="Add a comment..." required rows="5"></textarea>
+                    <div class="input-group-append">
+                        <button class="btn add-comment input-group-text" type="button" [hidden]="!commentContent" (click)="onComment()"><img class="comment-img" src="assets/img/send.svg"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Comments-->
+        <ng-container *ngFor="let commentThread of commentThreads[0] | slice : startPage:paginationLimit ;let i=index">
+            <div class="row  no-padding">
+                <div class="comment-header col-lg-1 col-md-1 col-sm-2 col-2">
+                    <img *ngIf="commentThread.comment.avatar!=null" class="discussion-section-img" [src]="commentThread.comment.avatar">
+                    <ngx-avatar *ngIf="commentThread.comment.avatar==null" size="38" name="{{commentThread.comment.authorName}}">
+                    </ngx-avatar>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-8">
+                    <div class="discussion-section-info"><span class="discussion-section-name">{{commentThread.comment.authorName}}
+              {{commentThread.comment.authorLastName}}</span> | {{commentThread.comment.authorCategory}}
+                    </div>
+                </div>
+                <div class="comment-date col-lg-2 col-md-2 col-sm-2 col-2">
+                    <div>
+                        <div class="discussion-section-date">
+                            {{commentThread.comment.createdOn |date: 'dd/MM/yyyy'}}</div>
+                    </div>
+                    <div>
+                        <div class="dropdown">
+                            <button [ngClass]="{'isDisabled': !canEdit}" [ngStyle]="{ 'color': (commentThread.comment.author===userEmail&&canEdit) ? 'black' : 'transparent'}" class="btn btn-default ellipsis-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="true" (click)="canEditAndDelete(commentThread.comment.author)">
+                <i class="fa fa-ellipsis-v"></i>
+              </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu1" [hidden]="!showEditDeleteComment">
+                                <a class="dropdown-item" (click)="showEditCommentSection(commentThread.comment)" data-toggle="collapse" role="button" aria-expanded="false"> <img class="edit-pen" src="assets/img/pen.svg"> Edit comment
+                                </a>
+                                <hr>
+                                <a (click)="deleteComment(commentThread.id,commentThread.comment.id)" class="dropdown-item">
+                                    <i class="fa fa-trash"></i> Delete comment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit comment -->
+            <div class="row no-padding">
+                <div class="offset-1 col-lg-11 col-md-11">
+                    <pre *ngIf="!commentThread.comment.editMode" class="row discussion-section-para-1"> {{commentThread.comment.content}}
+                    </pre>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row">
+                                <div class="col-md-11 no-padding">
+                                    <textarea *ngIf="commentThread.comment.editMode" [(ngModel)]="editCommentContent" type="text" name="text" class="row form-control discussion-form-control" placeholder="Edit comment..." required rows="5"></textarea>
+                                </div>
+                                <div class="input-group-append col-md-1">
+                                    <button [hidden]="!commentThread.comment.editMode" class="btn add-comment no-padding" type="button" (click)="onUpdateComment(commentThread.comment,commentThread.id, 0)"><img class="comment-img"
+                      src="assets/img/send.svg"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <a class="discussion-section-reactions" [routerLink]="" (click)="upvote(commentThread.id,commentThread.comment, 0)" role="button" aria-expanded="false" aria-controls="upvote">
+                                <img *ngIf="!commentThread.comment.hasUpvoted" class="like-img" src="assets/img/like.svg">
+                                <img *ngIf="commentThread.comment.hasUpvoted" class="like-img" src="assets/img/like-this1.svg">
+                            </a>
+                            <span class="discussion-section-reactions">{{commentThread.comment.upvotes.length}}
+                upvotes </span>
+                        </div>
+                        |
+                        <div>
+                            <!-- end change -->
+                            <a class="discussion-section-reactions" href="#replyComment-{{i}}" (click)="showReplyCommentSection()" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="replyComment"><img class="comment-img" src="assets/img/comment.svg">
+                            </a> <span class="discussion-section-reactions">{{commentThread.comment.replies.length}}
+                replies </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add reply comment -->
+            <div class="row mr-0  collapse" id="replyComment-{{i}}" *ngIf="showReplyComment">
+                <div class="comment-header col-lg-11 col-md-11 offset-lg-1" style="align-items: start;">
+                    <div>
+                        <img *ngIf="profileImgUrl!=null" class="profile-img-comment" [style.backgroundImage]="'url('+ profileImgUrl +')'">
+                        <ngx-avatar *ngIf="profileImgUrl==null" size="38" name="{{user}}"></ngx-avatar>
+                    </div>
+                    <div class="reply-text">
+                        <div class="form">
+                            <div class="input-group mb-3">
+                                <textarea [(ngModel)]="replyCommentContent" type="text" name="text" class="form-control discussion-form-control" placeholder="Add a comment..." required rows="5"></textarea>
+                                <div class="input-group-append">
+                                    <button class="btn add-comment input-group-text" type="button" [hidden]="!replyCommentContent" (click)="onReplyComment(commentThread.id,commentThread.comment.id)"><img class="comment-img"
+                      src="assets/img/comment.png"></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-lg-6 offset-1 col-md-6 col-sm-6">
+                                        <a href="#" class="discussion-section-load" *ngIf="commentThread.comment.replies.length>0">Load previous
+                                            replies</a>
+                                    </div> -->
+            </div>
+            <!-- Reply comment section -->
+            <ng-container *ngFor="let reply of commentThread.comment.replies">
+                <div *ngIf="reply!=null">
+                    <div class="row offset-lg-1 offset-md-1 no-padding">
+                        <div class="comment-header col-lg-1 col-md-1 col-sm-2 col-2">
+                            <img *ngIf="reply.avatar!=null" class="discussion-section-img" [src]="reply.avatar">
+                            <ngx-avatar *ngIf="reply.avatar==null" size="30" name="{{commentThread.comment.authorName}}">
+                            </ngx-avatar>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-8">
+                            <div class="discussion-section-info"><span class="discussion-section-name">{{reply.authorName}}
+                  {{reply.authorLastName}}</span> | {{reply.authorCategory}}
+                            </div>
+                        </div>
+                        <div class="comment-date col-lg-2 col-md-2 col-sm-2 col-2">
+                            <div>
+                                <div class="discussion-section-date">
+                                    {{reply.createdOn |date: 'dd/MM/yyyy'}}</div>
+                            </div>
+                            <div>
+                                <div class="dropdown">
+                                    <button [ngClass]="{'isDisabled': !canEditReply}" [ngStyle]="{ 'color': (reply.author===userEmail&&canEditReply) ? 'black' : 'transparent'}" class="btn btn-default ellipsis-button" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true" (click)="canEditAndDelete(reply.author)">
+                    <i class="fa fa-ellipsis-v"></i>
+                  </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu3" [hidden]="showEditDeleteComment==false">
+                                        <a class="dropdown-item" [routerLink]="" (click)="showEditReplySection(reply)" data-toggle="collapse" role="button" aria-expanded="false">
+                                            <img class="edit-pen" src="assets/img/pen.svg"> Edit comment
+                                        </a>
+                                        <hr>
+                                        <a (click)="deleteReplyComment(commentThread.id,commentThread.comment.id,reply?.id)" class="dropdown-item"> <i class="fa fa-trash"></i> Delete comment
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Edit reply comment -->
+                    <div class="row no-padding">
+                        <div class="offset-1 col-lg-11 col-md-11">
+                            <pre *ngIf="!reply.editMode" class="row discussion-section-para-1">{{reply.content}}
+              </pre>
+                            <div class="row">
+                                <div *ngIf="reply.editMode" class="col-lg-12 col-md-12">
+                                    <div class="row ">
+                                        <div class="col-md-11 no-padding">
+                                            <textarea *ngIf="reply.editMode" [(ngModel)]="editReplyContent" type="text" name="text" class=" row form-control discussion-form-control" placeholder="Edit comment..." required rows="5"></textarea>
+                                        </div>
+                                        <div class="input-group-append col-md-1">
+                                            <button [hidden]="!reply.editMode" class="btn add-comment no-padding" type="button" (click)="onUpdateComment(reply,commentThread.id, commentThread.comment.id)"><img
+                          class="comment-img" src="assets/img/comment.png"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <a class="discussion-section-reactions" [routerLink]="" (click)="upvote(commentThread.id, reply, commentThread.comment.id )" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="upvote">
+                                        <img *ngIf="!reply.hasUpvoted" class="like-img" src="assets/img/like.svg">
+                                        <img *ngIf="reply.hasUpvoted" class="like-img" src="assets/img/like-this1.svg">
+                                    </a>
+                                    <span class="discussion-section-reactions">{{reply.upvotes.length}}
+                    upvotes </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+            <div class="col-lg-10 offset-2 col-md-10">
+              <pre *ngIf="!reply.editMode" class="row discussion-section-para-1">{{reply.content}}
+                            </pre>
+              <div *ngIf="reply.editMode" class="col-lg-12 col-md-12">
+                <div class="col-lg-11 no-padding"> <textarea *ngIf="reply.editMode" [(ngModel)]="editReplyContent"
+                    type="text" name="text" class=" row form-control discussion-form-control"
+                    placeholder="Edit comment..." required rows="5"></textarea></div>
+
+                <div class="input-group-append col-lg-1 float-right no-padding">
+                  <button [hidden]="!reply.editMode" class="btn add-comment no-padding" type="button"
+                    (click)="onUpdateComment(reply,commentThread.id, commentThread.comment.id)"><img class="comment-img"
+                      src="assets/img/comment.png"></button>
+                </div>
+              </div>
+              <div class="row">
+                <a class="discussion-section-reactions" [routerLink]=""
+                  (click)="upvote(commentThread.id, reply, commentThread.comment.id )" data-toggle="collapse"
+                  role="button" aria-expanded="false" aria-controls="upvote">
+                  <img *ngIf="!reply.hasUpvoted" class="like-img" src="assets/img/like.svg">
+                  <img *ngIf="reply.hasUpvoted" class="like-img" src="assets/img/like-this1.svg">
+                </a>
+                <span class="discussion-section-reactions">{{reply.upvotes.length}}
+                  upvotes </span>
+              </div>
+            </div>
+          </div> -->
+                </div>
+            </ng-container>
+        </ng-container>
+        <!-- <div class="col-lg-12 discussion-section-link">
+      <a class="show-more" *ngIf="paginationLimit < commentThreads[0].length" (click)="showMoreItems()">Show
+        more
+        comments</a>
+    </div> -->
+    </section>
+</div>

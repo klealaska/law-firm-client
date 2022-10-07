@@ -1,0 +1,79 @@
+.bookmarks-title {
+    font-weight: bold;
+    font-family: DINNextLTPro-Regular, 'Open Sans';
+    font-size: 23px;
+    margin-left: 12px;
+    margin-top: 20px;
+}
+
+.bookmarks-info {
+    color: rgb(16, 16, 16);
+    font-family: DINNextLTPro-Regular, 'Open Sans';
+    font-size: 16px;
+    text-decoration: none;
+    padding: 11px;
+}
+
+.bookmarks-info:hover {
+    color: #aa272f;
+}
+
+.bookmarks-icon-list {
+    list-style: none;
+    text-align: right;
+}
+
+.bookmarks-icon-list li {
+    margin-top: -28px;
+    padding: 2px;
+}
+
+.bookmarks-icon-list li i {
+    margin-right: 10px;
+}
+
+.bookmark {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-bottom: -15px;
+    padding-left: 16px;
+}
+
+.bookmark:hover {
+    background-color: #f3f3f3;
+}
+
+.bookmarks-icon-list li:hover {
+    color: red;
+}
+
+.bookmarks-section {
+    background-color: #f3f3f3;
+}
+
+.bookmarks-image img {
+    width: 100%;
+    height: auto;
+}
+
+.bookmarks-main-section {
+    margin-left: -15px;
+}
+
+.no-date-bookmark {
+    font-size: 16px;
+    font-family: DINNextLTPro-Regular, 'Open Sans';
+    background-color: #f3f3f3;
+    padding: 10px;
+}
+
+@media (max-width: 991px) {
+    .bookmarks-image {
+        display: none;
+    }
+}
+
+.bookmark:hover {
+    color: #aa272f;
+}

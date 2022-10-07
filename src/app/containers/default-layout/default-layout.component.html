@@ -1,0 +1,122 @@
+<ngx-spinner bdColor="rgb(246 250 255 / 84%)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+</ngx-spinner>
+<div class="header fixed-top">
+    <nav class="navbar navbar-expand-lg  inside-container no-padding">
+        <a [routerLink]="['/home']" class="navbar-brand" routerLinkActive="active">
+            <img src="/assets/img/Mazars_Logo.jpg" alt="Logo" style="width:100%; padding: 10px;">
+        </a>
+        <div class="page-language">
+            <a [ngClass]="{'active-language': language==english}" class="nav-link nav-link-en  mazars-nav-link" (click)="onLanguageChange(english)">EN </a>
+            <span class="nav-line">|</span>
+            <a [ngClass]="{'active-language': language==albanian}" class="nav-link nav-link-al  mazars-nav-link" (click)="onLanguageChange(albanian)">AL</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fa fa-bars"></i>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse nav-pad" id="navbarTogglerDemo03">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a [ngClass]="{'active-language': language==english}" class="nav-link nav-link-en mazars-nav-link hide-element" (click)="onLanguageChange(english)">EN
+                        |</a>
+                </li>
+                <li class="nav-item">
+                    <a [ngClass]="{'active-language': language==albanian}" class="nav-link nav-link-al mazars-nav-link hide-element" (click)="onLanguageChange(albanian)">AL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mazars-nav-link" href="#">Mazars ne shqiperi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mazars-nav-link " href="#">Sherbimet tona</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mazars-nav-link" [routerLink]="['/contact']">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div *ngIf="!userService.isLoggedIn()" class="row login-container">
+        <div class="col-3 nav-2-text">
+            <h3 class="live-tax-mazars">Live Tax</h3><button class="sidebar-button2" mat-icon-button (click)="sidenav.toggle()" fxShow.sm="true" fxShow.gt-sm="false">
+                <img src="/assets/img/menu.png" class="menu-icon">
+                <span class="menu-title">Menu</span>
+            </button>
+        </div>
+        <div class="col-9 nav-2-buttons nav-2-text">
+            <button class="mazars-login-button" (click)="login()">Login</button>
+            <button class="mazars-register-button" (click)="register()">Register</button>
+        </div>
+    </div>
+    <hr class="horizontal-line" *ngIf="!userService.isLoggedIn()">
+    <div *ngIf="userService.isLoggedIn()" class="row inside-container no-padding">
+        <div class="col-3">
+            <h3 class="live-tax-mazars" style="transform: translate(0px, 10px);">Live Tax</h3>
+            <button class="sidebar-button" mat-icon-button (click)="sidenav.toggle()" fxShow.sm="true" fxShow.gt-sm="false">
+                <img src="/assets/img/menu.png" class="menu-icon">
+                <span class="menu-title">Menu</span>
+            </button>
+        </div>
+        <div class="col-9 user-navigation nav-2-text">
+            <div class="row">
+                <div class="dropdown">
+                    <button class="btn btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-bell notification-icon" style="font-size:18px; color:#101010"></i><span
+                            class="badge badge-pill badge-warning"
+                            *ngIf="notificationList.length>0">{{notificationList.length}}</span>
+                    </button>
+                    <div class="dropdown-menu notification pt-2" aria-labelledby="dropdownMenu1">
+                        <div class="row inside-container mb-2 justify-content-center" *ngIf="notificationList.length==0">
+                            <small class="text-muted">You do not have notifications</small>
+                        </div>
+                        <ng-container *ngFor="let notification of notificationList;let i =index">
+                            <div class="row inside-container hoverable" (click)="route(notification?.notification.link)" style="cursor: pointer;">
+                                <div class="col-lg-10">
+                                    <div class="row">
+                                        <span class="notification-title">{{notification?.notification.title}}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="notification-content">{{notification?.notification.description}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 float-xl-right">
+                                    <span class="notification-time">{{notification.time}}</span>
+                                </div>
+                            </div>
+                            <hr *ngIf="i<notificationList.length-1">
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="row dropdown user-dropdown ml-2 mb-1">
+                    <ng-container *ngIf="imagePath==null">
+                        <div>
+                            <ngx-avatar size="30" name="{{user.firstName}} {{user.lastName}}"></ngx-avatar>
+                        </div>
+                    </ng-container>
+                    <img *ngIf="imagePath!=null" class="profile-pic" src="{{imagePath}}" style="object-fit:scale-down;">
+                    <button class="btn mazars-profile-button  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.firstName}} {{user.lastName}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" (click)="goToProfile()"> <img class="user-profile-img" src="assets/img/user.svg"> Go to Profile
+                        </a>
+                        <div class="container" style="margin-top: -14px;
+                    margin-bottom: -15px;">
+                            <hr>
+                        </div>
+                        <a class="dropdown-item" (click)="onLogOut()"> <img class="user-profile-img" src="assets/img/logout.svg"> Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="horizontal-line" *ngIf="userService.isLoggedIn()">
+</div>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav [(mode)]="over" [(opened)]="opened" class="col-lg-3 mazars-side-nav">
+        <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+</mat-sidenav-container>

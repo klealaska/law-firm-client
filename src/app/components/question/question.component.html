@@ -1,0 +1,63 @@
+<div class="inside-container question-page">
+    <span class="news-h">Pyetje <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i>
+  </span>
+    <div class="row">
+        <div class="col-lg-8">
+            <h3 class="contact-form-heading">Enquiry form</h3>
+            <form name="form" #f="ngForm">
+                <div class="row">
+                    <div class="contact-section">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="form-group">
+                                <ng-select placeholder="Please Select" [(ngModel)]="select" name="select" required>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="form-group contact-form">
+                                <label class="contact-label" for="fmName">Family Name*</label><br>
+                                <input type="text" name="familyName" [(ngModel)]="familyName" class="form-control contact-form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="form-group contact-form">
+                                <label class="contact-label" for="fName">First Name*</label><br>
+                                <input type="text" name="firstName" [(ngModel)]="firstName" class="form-control contact-form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-9">
+                            <div class="form-group contact-form">
+                                <label class="contact-label" for="email">Email Address*</label><br>
+                                <input type="email" name="email" [(ngModel)]="email" class="form-control contact-form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-12">
+                            <div class="form-group contact-form">
+                                <label class="contact-label" for="message">Message*</label>
+                                <textarea name="message" rows="4" cols="50" [(ngModel)]="message" class="form-control contact-form-control" placeholder="Your message"></textarea>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" name="condition" [(ngModel)]="condition" required>
+                                <label for="defaultCheck1" class="check-contact-input">
+                  I accept that Mazars will process my personal data for the purpose of handling my request*
+                </label>
+                            </div>
+                            <button class="btn client-save-button" [disabled]="f.invalid" (click)="onSubmit()">send form</button><br>
+                            <span class="contact-form-mandatory">* mandatory fields</span>
+                            <p class="contact-form-para">Your personal data is collected by Mazars in Albania, the data controller, in accordance with applicable laws and regulations.Fields marked with an asterisk are required. If any required field is left blank, it will not be
+                                possible to process your request. Your personal data is collected for the purpose of processing your request.
+                            </p>
+                            <p class="contact-form-para">You have a right to access, correct and erase your data, and a right to object to or limit the processing of your data. You also have a right to data portability and the right to provide guidance on what happens to your data
+                                after your death. Finally, you have the right to lodge a complaint with a supervisory authority and a right not to be the subject of a decision based exclusively on automated processing, including profiling, that produces
+                                legal effects concerning you or significantly affects you in a similar way.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

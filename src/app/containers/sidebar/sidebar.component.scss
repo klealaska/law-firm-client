@@ -1,0 +1,81 @@
+.example-tree-invisible {
+    display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+.material-icons {
+    font-size: 16px;
+    color: #697386;
+}
+
+.mat-tree {
+    margin-left: -27px;
+}
+
+.mat-tree-node {
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    height: 19px;
+    line-height: 73px;
+    cursor: pointer;
+    font-family: DINregular, 'Open Sans';
+    font-size: 0.85rem;
+}
+
+.badge-secondary {
+    margin-right: 5px;
+}
+
+.mat-icon-button .mat-icon,
+.mat-icon-button i {
+    line-height: 23px;
+    margin-right: -33px;
+}
+
+.mat-tree-node:active {
+    color: #AA272F;
+}
+
+
+.active-node {
+    color: #AA272F;
+}
+
+.children-active {
+    .mat-tree-node {
+        color: #AA272F;
+    }
+}
+
+
+.mat-icon-button{
+    border-radius: 0 !important;
+    vertical-align: middle;
+}
+
+.mat-tree-node{
+    line-height: 40px !important;
+    height: 0;
+    min-height: 35px;
+}
+.totalCount{
+    margin-left: 5px;
+    background-color: #0a7923 !important;
+}
+.badge-pill{
+    padding-bottom: 5px;
+}
+

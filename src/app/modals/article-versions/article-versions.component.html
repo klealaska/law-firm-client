@@ -1,0 +1,85 @@
+<ng-template #template>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Law article versions</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onHideModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <mat-accordion>
+            <ng-container *ngFor="let version of articleVersionsList; index as i">
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Version {{i+1}}: {{version.lawName}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="law-name">
+                        <a href="{{version.lawUrl}}">{{version.lawName}}</a>
+                    </div>
+                    <div class="details">
+                        <span>Details</span>
+                    </div>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="version.lawArticleVersionDetails">
+                            <ng-container matColumnDef="index">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="description">
+                                <th mat-header-cell *matHeaderCellDef> Description </th>
+                                <td mat-cell *matCellDef="let element" (click)="goToArticle(element.url)">
+                                    {{element.description}}</td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator></mat-paginator>
+                    </div>
+                </mat-expansion-panel>
+            </ng-container>
+        </mat-accordion> -->
+        <div class="basic-container" *ngIf="articleVersionsList.length>0">
+            <mat-accordion>
+                <cdk-virtual-scroll-viewport itemSize="{{paginationModel.PageSize}}" class="viewport">
+                    <mat-expansion-panel *cdkVirtualFor="let version of articleVersionsList; index as i">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Version {{i+1}}: {{version.lawName}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="law-name">
+                            <a href="{{version.lawUrl}}">{{version.lawName}}</a>
+                        </div>
+                        <div class="details">
+                            <span>Details</span>
+                        </div>
+                        <div class="mat-elevation-z8">
+                            <table mat-table [dataSource]="version.lawArticleVersionDetails">
+                                <ng-container matColumnDef="index">
+                                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                                    <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}}
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="description">
+                                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                                    <td mat-cell *matCellDef="let element" (click)="goToArticle(element.url)">
+                                        {{element.description}}</td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator></mat-paginator>
+                        </div>
+                    </mat-expansion-panel>
+                </cdk-virtual-scroll-viewport>
+            </mat-accordion>
+        </div>
+        <div *ngIf="articleVersionsList.length==0">
+            <div class="text-muted no-date-bookmark">
+                There is no previous versions!
+            </div>
+        </div>
+    </div>
+</ng-template>

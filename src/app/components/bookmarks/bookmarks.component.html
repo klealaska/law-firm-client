@@ -1,0 +1,24 @@
+<div class="inside-container bookmarks-page">
+    <span class="news-h">Bookmarks <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i>
+    </span>
+    <div class="row">
+        <div class="col-lg-7">
+            <ng-container *ngIf="bookmarks.length==0">
+                <div class="text-muted no-date-bookmark">
+                    There is no data!
+                </div>
+            </ng-container>
+            <ng-container *ngFor="let bookmark of bookmarks">
+                <div class="row bookmark-row">
+                    <div class="col bookmark">
+                        <i class="fa fa-trash" (click)="deleteBookmark(bookmark.lawArticleId)"></i>
+                        <a class="bookmarks-info" [attr.href]="bookmark.url">{{bookmark.lawArticleName}}</a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class=" bookmarks-image col-lg-5">
+            <img src="assets/img/RepeatGrid.png" alt="image">
+        </div>
+    </div>
+</div>

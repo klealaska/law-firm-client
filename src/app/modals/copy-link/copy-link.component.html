@@ -1,0 +1,14 @@
+<ng-template #template>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Copy link</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onHideModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row related-link">
+            <div class="col-9 link-url"><a href="{{link}}">{{link}}</a></div>
+            <div class="col-3"><span (click)="copyText(link)">Copy &nbsp;<i class="fa fa-copy"></i></span></div>
+        </div>
+    </div>
+</ng-template>

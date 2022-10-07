@@ -1,0 +1,29 @@
+<div class="inside-container tags-page">
+  <span class="news-h">Tags<i class="fa fa-chevron-right " style="font-size: 0.5rem; "> </i>
+  </span>
+  <h2 class="popup-title" *ngIf="blogPostList.length>0">Blog Posts Related to <span class="tags">{{tagName}}</span></h2>
+  <div class="tags-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300"
+    *ngIf="blogPostList.length>0">
+    <ng-container *ngFor="let blog of blogPostList">
+      <div class="row tag-infos" (click)="openBlogPost(blog.id)">
+        <div class="col-md-1 col-sm-3">
+          <img *ngIf="blog.imageUrl!=null" class="popup-img" [src]="blog.imageUrl">
+        </div>
+        <div class="col-md-11 col-sm-9" [ngClass]="{'col-md-12 col-sm-12':blog.imageUrl==null}">
+          <div class="row">
+            <div class="col-md-6">
+              <span class="popup-blog-title">{{blog.title}}</span>
+              <span>|</span>
+              <span class="publish-date ">Published on {{blog.publishedDate | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+          </div>
+          <div class="blog-description" [innerHtml]="blog.description"></div>
+        </div>
+      </div>
+      <hr>
+    </ng-container>
+  </div>
+</div>

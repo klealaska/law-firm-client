@@ -1,0 +1,63 @@
+.active {
+    border: 2px solid #aa272f !important;
+    border-width: 0 0 0 2px !important;
+    color: #aa272f !important;
+}
+
+.active.position-link {
+    padding: 0 8px;
+    margin-left: -10px;
+}
+
+.position-link {
+    a {
+        transition: all 100ms ease-in-out;
+    }
+}
+
+::ng-deep .selected {
+    background-color: rgb(255, 255, 0);
+}
+
+::ng-deep .type-selected {
+    background-color: #ff9632;
+}
+
+h3 {
+    scroll-margin-top: 8rem;
+}
+
+.span-navigation {
+    cursor: pointer;
+}
+
+.article-header {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 575px) {
+    .text-right {
+        text-align: left !important;
+    }
+}
+
+.isDisabled {
+    pointer-events: none;
+    color: #1010105e !important;
+}
+
+::ng-deep a .selected {
+    background-color: yellow;
+    text-decoration: underline;
+    color: #3f51b5;
+}
+
+app-article-versions,
+app-copy-link,
+app-related-links {
+    display: none;
+}
+
+.fa {
+    cursor: pointer;
+}

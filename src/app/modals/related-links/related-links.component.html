@@ -1,0 +1,25 @@
+<ng-template #template>
+    <div class="modal-header">
+        <h5 class="modal-title pull-left">Related links</h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="onHideModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <cdk-virtual-scroll-viewport itemSize="{{paginationModel.PageSize}}" class="viewport">
+            <ng-container *cdkVirtualFor="let link of relatedLinks">
+                <div class="col-sm-12" class="no-padding">
+                    <ul>
+                        <li class="link-desc">{{link.description}}</li>
+                    </ul>
+                </div>
+                <div class="row related-link">
+                    <div class="col-sm-9 link-url"><a href="{{link.url}}">{{link.url}}</a></div>
+                    <div class="col-sm-3"><span (click)="copyText(link.url)">Copy &nbsp;<i
+                                class="fa fa-copy"></i></span>
+                    </div>
+                </div>
+            </ng-container>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</ng-template>

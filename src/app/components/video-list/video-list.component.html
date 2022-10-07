@@ -1,0 +1,26 @@
+<div class="inside-container videos-page">
+    <span class="news-h">Videos <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i>
+  </span>
+    <div class="row">
+        <ng-container *ngFor="let video of videos ">
+            <div class="col-lg-3 col-md-6">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe #video allowfullscreen [src]="video.link"></iframe>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <!--- <div class="col-lg-5 offset-lg-3">
+      <ng-container *ngFor="let video of videos">
+        <div class="row">
+          <div class="col video">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe #video allowfullscreen [src]="video.link"></iframe>
+            </div>
+            <span class="videos-title">{{video.title}}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>-->
+</div>

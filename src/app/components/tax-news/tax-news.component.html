@@ -1,0 +1,49 @@
+<div class="inside-container">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="inside-container newsContent">
+                <span class="news-h">Lajme dhe njoftime <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i>
+                </span>
+                <br>
+                <!--Jambotron-->
+                <div *ngIf="imageUrl!=null" class="jumbotron  {{colorOverlay}}" [style.background-image]="'url('+ imageUrl +')'" style="background-size: cover; background-repeat: no-repeat;
+                     background-position: center ; position: relative;z-index: 100;
+                     border-radius: unset; padding: 2rem 2rem;">
+                    <div class="row">
+                        <div class="jamb-p"><img src="assets/img/Path728.png" style="margin-left: 24px;max-width: 15px;"> {{lawName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col news-content">
+                            <h1 class="jamb-h">{{title}}</h1>
+                            <div class="row">
+                                <div class="col-lg-5 jamb-p-2">{{description}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Jambotron-->
+                <div style="background-color: #F6FAFF; ">
+                    <ng-container *ngFor="let data of taxNewsData;index as i">
+                        <div class="row no-margin news-info" *ngIf="setLink(data.taxNewsAttachments, 'en-US')!=null||setLink(data.taxNewsAttachments, 'sq-AL')!=null ">
+                            <div class="col-md-8 col-sm-12 news-text">
+                                <h6 class="news-title ">{{data.title}}</h6>
+                                <div class="news-pdf" *ngIf="setLink(data.taxNewsAttachments, 'sq-AL')!=null">
+                                    Please click here for the <a [attr.href]="setLink(data.taxNewsAttachments, 'sq-AL') " target="_blank " class="news-span ">Albanian</a> version
+                                </div>
+                                <div class="news-pdf" *ngIf="setLink(data.taxNewsAttachments, 'en-US')!=null ">
+                                    Please click here for the <a [attr.href]="setLink(data.taxNewsAttachments, 'en-US') " target="_blank " class="news-span">English</a> version
+                                </div>
+                                <div class="news-date ">
+                                    {{data.publishedDate |date: 'dd/MM/yyyy'}}</div>
+                            </div>
+                            <div *ngIf="data.imageUrl!=null " class="col-md-4 col-sm-12 news-img ">
+                                <img class="tax-news-img" [src]="data.imageUrl">
+                            </div>
+                        </div>
+                        <hr class="hr-style" />
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>

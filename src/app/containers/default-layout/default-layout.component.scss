@@ -1,0 +1,179 @@
+.header {
+    z-index: 1020;
+    background-color: white;
+    width: 100%;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+.navbar-brand {
+    width: 120px;
+}
+
+.horizontal-line {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    font-family: DINregular, "Open Sans";
+    font-size: 14px;
+}
+
+.fa-user,
+.fa-sign-out {
+    padding-right: 10px;
+}
+
+.notification {
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.dropdown-menu.show {
+    display: block;
+    padding: 0px;
+}
+
+.first-notific {
+    margin-top: 5px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.mat-drawer-container {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow: hidden;
+    background-color: white;
+}
+
+.mat-sidenav {
+    margin-top: 84px;
+    position: fixed;
+    overflow-y: hidden;
+}
+
+.mat-sidenav-content {
+    margin-top: 99px !important;
+}
+
+.nav-pad {
+    padding-left: 10px;
+}
+
+@media (max-width: 2560px) {
+    .page-language {
+        display: none;
+    }
+}
+
+@media (max-width: 1279px) {
+    .mat-icon-button {
+        display: inline-block !important;
+    }
+    .mat-sidenav {
+        width: 50%;
+    }
+}
+
+@media (max-width: 1279px) {
+    .live-tax-mazars {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .hide-element {
+        display: none;
+    }
+
+    .page-language {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .nav-line {
+        margin-top: 8px;
+        margin-left: -12px;
+        margin-right: 5px;
+    }
+
+    button.navbar-toggler {
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 892px) {
+    .mat-sidenav {
+        width: 100%;
+    }
+}
+
+// @media(max-width:333px) {
+//     .mat-sidenav {
+//         width: 100%;
+//     }
+// }
+.example-container {
+    position: absolute;
+    top: 87px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+}
+
+.menu-icon {
+    width: 48%;
+    border-radius: 3px;
+}
+
+.menu-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: DINRegular, "Open Sans";
+    padding-left: 4px;
+}
+
+@media (min-width: 1279px) {
+    .menu-title {
+        display: none;
+    }
+}
+
+.sidebar-button {
+    outline-color: white;
+    transform: translate(-7px, 0px);
+}
+
+.sidebar-button2 {
+    transform: translate(8px, 0px);
+    outline-color: white;
+}
+
+.active-language {
+    color: #0056b3 !important;
+}
+
+.nav-link {
+    cursor: pointer;
+}

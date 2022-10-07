@@ -1,0 +1,97 @@
+<div class="Main-container mazars-design">
+
+
+
+  <!--Navbar section-->
+  <nav class="navbar navbar-expand-lg login-nav  inside-container">
+    <a class="navbar-brand" href="#">
+      <img src="assets/img/Mazars.png" alt="" style="width:75%">
+    </a>
+    <div class="d-flex">
+      <a class="nav-link nav-link-en" href="#">EN</a>
+      <span class="nav-line">|</span>
+      <a class="nav-link nav-link-al" href="#">AL</a>
+
+    </div>
+  </nav>
+  <!--End navbar section-->
+  <section class="register-section login-section">
+    <div class="inside-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class=" col-lg-6 col-sm-12">
+            <div class="card">
+              <div class="card-header tab-card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-tab" routerLink="/register">New Users</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-tab active" id="existing-tab" data-toggle="tab" href="#existing"
+                      role="tab" aria-controls="existing" aria-selected="true">Existing Users</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content" id="myTabContent">
+                <form name="form" #f="ngForm">
+                  <div class="tab-pane fade show active p-3" id="existing" role="tabpanel"
+                    aria-labelledby="existing-tab">
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-10">
+                        <h3 class="login-heading">Log in to your account</h3>
+                        <p class="login-paragraph">Don´t have an account? <a routerLink="/register"
+                            class="sign-up-color">Sign Up</a></p>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-10">
+                        <input type="email" class="form-control login-form-control" name="email" [(ngModel)]="email"
+                          #emailInput="ngModel" placeholder=" Username "
+                          [ngClass]="{ 'is-invalid':(emailInput.dirty||emailInput.touched)&&emailInput.invalid }"
+                          required email>
+                        <img class="login-img" src="assets/img/user.svg">
+                        <div *ngIf="emailInput.invalid&& (emailInput.dirty || emailInput.touched)"
+                          class="invalid-feedback">
+                          <div *ngIf="emailInput.errors.required" class="invalid-input">Please
+                            enter your email address</div>
+                          <div *ngIf="emailInput.errors.email" class="invalid-input">Email
+                            must be a valid email address</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row ">
+                      <div class="col-md-1 "></div>
+                      <div class="col-md-10 ">
+                        <input type="password" class="form-control login-form-control" name="password"
+                          [(ngModel)]="password" #Password="ngModel" placeholder=" Password"
+                          [ngClass]="{ 'is-invalid':(Password.dirty||Password.touched)&& Password.invalid }" required>
+                        <img class="login-img" src="assets/img/key.svg">
+                        <div *ngIf="Password.invalid&& (Password.dirty || Password.touched)" class="invalid-feedback">
+                          <div *ngIf="Password.errors.required" class="invalid-input">Please
+                            enter your password</div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6 offset-6">
+                            <a class="login-label" routerLink="/reset-password">Forgot
+                              password ?</a>
+                          </div>
+                        </div>
+                        <button type="button " class="btn login-button " (click)="onLogin() ">
+                          login
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 "></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

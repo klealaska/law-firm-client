@@ -1,0 +1,114 @@
+<div class="inside-container" style="padding-top: 5px;">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="inside-container blogPost">
+                <h3 class="news-h" [routerLink]="['/blog-posts']">Këndi i diskutimeve <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i>
+                </h3>
+                <div *ngIf="latestBlogPosts.length>0">
+                    <h3 class="blog-category"><a [routerLink]="['/blog-post-list', 'latest']" style="color:#555555">Most Latest</a>
+                    </h3>
+
+                    <div class="row ">
+                        <ng-container *ngFor="let data of latestBlogPosts;let i = index">
+                            <div class="col-md-6 col-lg-4 col-xl-4 ">
+                                <div *ngIf="data.imageUrl!=null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [style.background-image]="'url('+ data.imageUrl +')'" [ngStyle]="{
+                               'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 *ngIf="data.imageUrl!=null" class="blog-title-2">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl==null" style="color:#000000"></i></div>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl!=null"></i>
+                                        </div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content innerHtmlparagraph" style="color:#FFFFFF" [innerHTML]="data.description"></div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content read-more " style="color:#FFFFFF"><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color:#FFFFFF;">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                                <div *ngIf="data.imageUrl==null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [ngStyle]="{
+                               'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 class="blog-title-2" style="color:#000000">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " style="color:#000000"></i>
+                                        </div>
+                                        <div class="card-text blog-content innerHtmlparagraph" [innerHTML]="data.description ">
+                                        </div>
+                                        <div class="card-text blog-content read-more" style="color: #AA272F; "><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color: #AA272F; ">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div *ngIf="popularBlogPosts.length>0">
+                    <h3 class="blog-category"><a [routerLink]="['/blog-post-list', 'popular']" style="color:#555555">Most popular</a></h3>
+
+                    <div class="row ">
+                        <ng-container *ngFor="let data of popularBlogPosts">
+                            <div class="col-md-6 col-lg-4 col-xl-4 ">
+                                <div *ngIf="data.imageUrl!=null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [style.background-image]="'url('+ data.imageUrl +')'" [ngStyle]="{
+                              'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 *ngIf="data.imageUrl!=null" class="blog-title-2">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl==null" style="color:#000000"></i></div>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl!=null"></i>
+                                        </div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content innerHtmlparagraph" style="color:#FFFFFF" [innerHTML]="data.description"></div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content read-more " style="color:#FFFFFF"><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color:#FFFFFF;">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                                <div *ngIf="data.imageUrl==null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [ngStyle]="{
+                              'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 class="blog-title-2" style="color:#000000">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " style="color:#000000"></i>
+                                        </div>
+                                        <div class="card-text blog-content innerHtmlparagraph" [innerHTML]="data.description ">
+                                        </div>
+                                        <div class="card-text blog-content read-more" style="color: #AA272F; "><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color: #AA272F; ">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div *ngIf="userService.isLoggedIn()&&onYourInterest.length>0">
+                    <h3 class="blog-category"><a [routerLink]="['/blog-post-list', 'interest']" style="color:#555555">On your interest</a>
+                    </h3>
+
+                    <div class="row ">
+                        <ng-container *ngFor="let data of onYourInterest">
+                            <div class="col-md-6 col-lg-4 col-xl-4 ">
+                                <div *ngIf="data.imageUrl!=null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [style.background-image]="'url('+ data.imageUrl +')'" [ngStyle]="{
+                              'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 *ngIf="data.imageUrl!=null" class="blog-title-2">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl==null" style="color:#000000"></i></div>
+                                        <div><i class="fa fa-angle-double-down arrow-down " *ngIf="data.imageUrl!=null"></i>
+                                        </div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content innerHtmlparagraph" style="color:#FFFFFF" [innerHTML]="data.description "></div>
+                                        <div *ngIf="data.imageUrl!=null" class="card-text blog-content read-more " style="color:#FFFFFF"><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color:#FFFFFF;">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                                <div *ngIf="data.imageUrl==null" class="card blog-card" [ngClass]="{'overlay':data.imageUrl!=null}" [ngStyle]="{
+                              'background-color': (data.imageUrl==null) ? '#f5f6fa' : ''}">
+                                    <div class="card-body ">
+                                        <h1 class="blog-title-2" style="color:#000000">{{data.title}}</h1>
+                                        <div><i class="fa fa-angle-double-down arrow-down " style="color:#000000"></i>
+                                        </div>
+                                        <div class="card-text blog-content innerHtmlparagraph" [innerHTML]="data.description ">
+                                        </div>
+                                        <div class="card-text blog-content read-more" style="color: #AA272F; "><i class="fa fa-chevron-right "></i> <a [routerLink]="['/blog-post-view', data.id]" style="color: #AA272F; ">Read
+                                              more</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

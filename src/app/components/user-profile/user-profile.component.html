@@ -1,0 +1,128 @@
+<div class="inside-container" style="padding-top: 5px;">
+    <div class="row ">
+        <div class="col-lg-12">
+            <!--Profile section-->
+            <section class="profile-section">
+                <div class="inside-container">
+                    <h3 class="profile-h">Profile <i class="fa fa-chevron-right " style="font-size: 0.5rem; "></i></h3>
+                    <form name="form" #f="ngForm">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12 offset-lg-1 client-profil-info">
+                                <h3 class="client-profile-heading">Profile</h3>
+                                <div class="profile-img">
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" />
+                                    </div>
+                                    <ng-container *ngIf="imagePath==null">
+                                        <div>
+                                            <ngx-avatar size="100" name="{{firstName}} {{lastName}}"></ngx-avatar>
+                                        </div>
+                                    </ng-container>
+                                    <img *ngIf="imagePath!=null" class="profile-section-img" style="background-size: cover;" src="{{imagePath}}" style="object-fit:scale-down;">
+                                </div>
+                                <h3 class="client-profile-name">{{firstName}} {{lastName}}</h3>
+                                <p class="client-profil-position">{{userCategoryName}}</p>
+                                <div class="client-profile-button">
+                                    <button class="btn client-edit-button" type="submit" (click)="fileInput.click()">Upload
+                                        Photo</button><br>
+                                    <button class="btn client-delete-button" type="submit" (click)="uploadImage()">Save
+                                        Photo</button><br>
+                                    <button class="btn client-delete-button" (click)="removeImage()">Delete</button><br>
+                                    <button class="btn client-password-button" (click)="openModal()">Change
+                                        Password</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-12 client-basic-info">
+                                <div class="d-flex user-profile-info">
+                                    <h3 class="client-profile-basic-info ">Basic info
+                                    </h3>
+                                    <img class="pen-img" src="assets/img/pen.svg">
+                                </div>
+                                <hr>
+                                <div class="row ">
+                                    <div class="col-lg-6 ">
+                                        <div class="form ">
+                                            <label class="profile-label " for="fName ">First Name *</label><br>
+                                            <input type="text " class="form-control " name="firstName" [(ngModel)]="firstName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 ">
+                                        <div class="form ">
+                                            <label class="profile-label " for="lName ">Last Name *</label><br>
+                                            <input type="text " class="form-control " name="lastName" [(ngModel)]="lastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="form ">
+                                            <label class="profile-label " for="email ">Email Address *</label><br>
+                                            <input [readonly]="true" class="form-control " name="email" [(ngModel)]="email" required email>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="d-flex user-profile-info">
+                                            <h3 class="client-profile-basic-info "> About me
+                                            </h3>
+                                            <img class="pen-img" src="assets/img/pen.svg">
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-6 ">
+                                        <label class="profile-label " for="profession ">Profession *</label><br>
+                                        <ng-select dropdownPosition="bottom" [items]="userCategories" bindLabel="name" bindValue="id" placeholder="Please select" [(ngModel)]="userCategoryId" name="userCategoryId" required>
+                                        </ng-select>
+                                    </div>
+                                    <div class="col-lg-6 ">
+                                        <div class="form ">
+                                            <label class="profile-label " for="company ">Company *</label><br>
+                                            <input type="text " class="form-control " name="company" [(ngModel)]="company" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <label class="profile-label " for="industry ">Industry *</label><br>
+                                        <ng-select dropdownPosition="bottom" [items]="userGroups" bindLabel="name" bindValue="id" placeholder="Please select" [(ngModel)]="userGroupId" name="userGroupId" required>
+                                        </ng-select>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <div class="d-flex user-profile-info">
+                                            <h3 class="client-profile-basic-info "> Notification settings</h3>
+                                            <img class="pen-img" src="assets/img/pen.svg">
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <label class="profile-label " for="profession ">Important tax date
+                                            notification</label>
+                                        <label class="switch" *ngIf="notificationRules!=null">
+                                            <input type="checkbox"
+                                                (change)="notificationSliderChanged('IMPORTANT_TAX_DATE')"
+                                                [(ngModel)]="importantToggle" name="generalToggle">
+                                            <span class="slider round"></span>
+                                        </label><br>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <label class="profile-label " for="industry ">General notification</label>
+                                        <label class="switch" *ngIf="notificationRules!=null">
+                                            <input type="checkbox" (change)="notificationSliderChanged('GENERAL')"
+                                                [(ngModel)]="generalToggle" name="importantToggle">
+                                            <span class="slider round"></span>
+                                        </label><br>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <label class="profile-label " for="industry ">Prefered Language</label>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn lang-button" [ngClass]="{'lang-selected-button': preferedLanguage=='sq-AL'}" (click)="setPreferedLanguage(1)">AL</button>
+                                            <button type="button" class="btn lang-button" [ngClass]="{'lang-selected-button': preferedLanguage=='en-US'}" (click)="setPreferedLanguage(2)">EN</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 user-profile-button">
+                                        <button class="btn client-save-button" (click)="editProfile()" [disabled]="f.invalid">save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

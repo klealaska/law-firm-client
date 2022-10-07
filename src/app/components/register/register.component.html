@@ -1,0 +1,201 @@
+<div class="Main-container mazars-design">
+  <!--Navbar section-->
+  <nav class="navbar navbar-expand-lg login-nav  inside-container">
+    <a class="navbar-brand" href="#">
+      <img src="assets/img/Mazars.png" alt="" style="width:75%">
+    </a>
+    <div class="d-flex">
+      <a class="nav-link nav-link-en" href="#">EN</a>
+      <span class="nav-line">|</span>
+      <a class="nav-link nav-link-al" href="#">AL</a>
+
+    </div>
+  </nav>
+  <!--End navbar section-->
+  <section class="register-section login-section">
+    <div class="inside-container">
+      <ngx-spinner bdColor="rgba(246, 250, 255,0.2)" size="medium" color="#fff" type="ball-spin-clockwise"
+        [fullScreen]="true">
+      </ngx-spinner>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class=" col-lg-6 col-sm-12">
+            <div class="card">
+              <div class="card-header tab-card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-tab active" id="new-tab" data-toggle="tab" href="#new" role="tab"
+                      aria-controls="new" aria-selected="true">New Users</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link nav-link-tab" routerLink="/login">Existing Users</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-content" id="myTabContent">
+                <form name="form" #f="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
+                  <div class="tab-pane fade show active p-3" id="new" role="tabpanel" aria-labelledby="new-tab">
+                    <h5 class="register-section-heading">Personal Details</h5>
+                    <hr>
+                    <div class="register-form">
+                      <div class="form-group row">
+                        <label for="firstName" class="col-md-4 col-form-label ">First Name *</label>
+                        <div class="col-md-6 ">
+                          <input type="text" class="form-control register-form-control register-form-control-req"
+                            name="firstName" [(ngModel)]="firstName" required>
+                        </div>
+
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="lastName" class="col-md-4 col-form-label ">Last Name *</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control register-form-control register-form-control-req"
+                            name="lastName" [(ngModel)]="lastName" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="company" class="col-md-4 col-form-label ">Company *</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control register-form-control register-form-control-req"
+                            name="company" [(ngModel)]="company" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="industry" class="col-md-4 col-form-label ">Industry *</label>
+                        <div class="col-md-6">
+                          <ng-select dropdownPosition="bottom" [items]="userGroups" bindLabel="name" bindValue="id"
+                            placeholder="Please select" [(ngModel)]="userGroupId" name="userGroupId" required>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="profession" class="col-md-4 col-form-label ">Profession *</label>
+                        <div class="col-md-6">
+                          <ng-select dropdownPosition="bottom" [items]="userCategories" bindLabel="name" bindValue="id"
+                            placeholder="Please select" [(ngModel)]="userCategoryId" name="userCategoryId" required>
+                          </ng-select>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="email" class="col-md-4 col-form-label">Email Address *</label>
+                        <div class="col-md-6">
+                          <input type="email" id="email"
+                            class="form-control register-form-control register-form-control-req" name="email"
+                            [(ngModel)]="user.email" #email="ngModel"
+                            [ngClass]="{ 'is-invalid':(email.dirty||email.touched)&&email.invalid }" required email>
+                          <div *ngIf="email.invalid&& (email.dirty || email.touched)" class="invalid-feedback">
+                            <div *ngIf="f.submitted &&email.errors.required" class="invalid-input">Email is required
+                            </div>
+                            <div *ngIf="email.errors.email" class="invalid-input">Email must be a valid email address
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">Password *</label>
+                        <div class="col-md-6">
+                          <input type="password" id="password" class="form-control register-form-control"
+                            name="password" [(ngModel)]="user.password" #password="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="6">
+
+                          <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                            <div *ngIf="password.errors.required" class="invalid-input">Password is required</div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="confirmPassword" class="col-md-4 col-form-label">Confirm Password *</label>
+                        <div class="col-md-6">
+                          <input type="password" id="confirmPassword"
+                            class="form-control register-form-control register-form-control-req"
+                            [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"
+                            [ngClass]="{ 'is-invalid': (confirmPassword.dirty||confirmPassword.touched)&& confirmPassword.invalid }"
+                            required>
+                          <div *ngIf=" confirmPassword.invalid" class="invalid-feedback">
+                            <div *ngIf="f.submitted &&confirmPassword.errors.required" class="invalid-input">Confirm
+                              Password is required</div>
+                            <div *ngIf="confirmPassword.errors.mustMatch" class="invalid-input">Passwords must match
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="register-section-para">Please note your Email address will be your username.</p>
+                    <p class="register-section-para">Please ensure your password is six characters or over and includes
+                      at least one uppercase character.</p>
+                    <h5 class="register-section-heading">Terms and Conditions</h5>
+                    <hr>
+                    <div>
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label">I agree to comply with the Terms and Conditions of this
+                          site *</label>
+                        <div class="col-md-6">
+                          <input type="checkbox" [(ngModel)]="user.condition1"
+                            [ngClass]="{'invalid-data': condition1.invalid && f.submitted, 'valid-data': condition1.valid && f.submitted}"
+                            required name="condition1" #condition1="ngModel">
+                          <label for="yes" class="register-yes"> Yes</label>
+                          <p class="register-section-click"><a href="#" class=" register-section-link">Click here to
+                              view
+                              the Terms and Conditions</a></p>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-md-4 col-form-label ">I have read and understood the data protection policy
+                          *</label>
+                        <div class="col-md-6">
+                          <input type="checkbox" [(ngModel)]="user.condition2"
+                            [ngClass]="{'invalid-data': condition2.invalid && f.submitted, 'valid-data': condition2.valid && f.submitted}"
+                            required name="condition2" #condition2="ngModel">
+                          <label for="yes1" class="register-yes"> Yes</label>
+                          <p class="register-section-click"><a href="#" class="register-section-link">Click here to view
+                              the data protection policy</a></p>
+                        </div>
+                      </div>
+                    </div>
+                    <h5 class="register-section-heading">Source</h5>
+                    <hr>
+                    <p class="col-form-label">How did you hear about Mazars?</p>
+
+                    <div>
+                      <div class="form-group row">
+                        <label for="influential" class="col-md-4 col-form-label ">Please select most influential
+                          *</label>
+                        <div class="col-md-6">
+                          <ng-select dropdownPosition="top" [items]="source" bindLabel="name"
+                            placeholder="Please Select" [(ngModel)]="user.source" name="source" #sourcE="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && userCategoryId.invalid }" required>
+                          </ng-select>
+                          <div *ngIf="f.submitted && sourcE.invalid && !user.source" class="invalid-input">
+                            Source is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <button class="btn register-button" [disabled]="f.invalid" (click)="onSubmit()">
+
+                        Register
+                      </button>
+                    </div>
+                  </div>
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

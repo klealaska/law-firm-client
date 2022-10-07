@@ -1,0 +1,132 @@
+<div class="inside-container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="neni-section">
+                <div class="inside-container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="laws-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+                                        <ng-container *ngFor="let data of chapterWithSections;let i=index">
+                                            <li *ngIf="i==0" class="breadcrumb-item" aria-current="page">
+                                                {{groupName}}
+                                            </li>
+                                            <li *ngIf="i==0" class="breadcrumb-item" aria-current="page">
+                                                {{lawName}}
+                                            </li>
+                                            <li *ngIf="i==0" class="breadcrumb-item" aria-current="page">
+                                                {{categoryName}}
+                                            </li>
+                                        </ng-container>
+                                    </ol>
+                                </nav>
+                                <div *ngIf="searchText.length>0" class="prev-next-buttons">
+                                    <span (click)="findPrev(categoryCode)" class="span-navigation"><i
+                                            class="fa fa-angle-left"></i>
+                                        prev
+                                    </span>
+                                    <span (click)="findNext(categoryCode)" class="span-navigation">next
+                                        <i class="fa fa-angle-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="articles-content">
+                                <div class="article-header" style="background-color: #c0989b3b;">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h3 class="neni-heading">{{lawName}}</h3>
+                                        </div>
+                                        <div class="col-sm-3 text-right">
+                                            <a class="ml-2" matTooltip="Versions"
+                                                (click)="getLawArticleVersions(lawId)"><i class="fa fa-history"></i></a>
+                                        </div>
+                                        <app-article-versions #showArticleVersions></app-article-versions>
+                                        <app-related-links #showRelatedLinks></app-related-links>
+                                        <app-copy-link #showCopyLink></app-copy-link>
+                                    </div>
+                                </div>
+                                <div class="article-header" style="background-color: #c0989b3b;">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h3 class="neni-heading">{{categoryName}}</h3>
+                                        </div>
+                                        <div class="col-sm-3 text-right">
+                                            <a class="ml-2" matTooltip="Copy Link" (click)="copyLink(categoryCode)"><i
+                                                    class="fa fa-link"></i></a>
+                                            <!-- <a class="ml-2" matTooltip="Versions"><i class="fa fa-history"></i></a> -->
+                                            <span class="ml-2" matTooltip="Print">
+                                                <button class="btn no-padding"
+                                                    [printStyle]="{button : {'border': 'none'}}"
+                                                    printSectionId="section-list" ngxPrint>
+                                                    <i class="fa fa-print"></i>
+                                                </button>
+                                            </span>
+                                            <a class="mr-2 ml-2" matTooltip="Export Pdf"
+                                                (click)="export('section-list',categoryName)"><i
+                                                    class="fa fa-download"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="section-list">
+                                    <ng-container *ngFor="let data of chapterWithSections ">
+                                        <section class="articles" id="{{data.id}}{{data.code}}"
+                                            [ngStyle]="{'background-color':data.isOverview?'#c0989b3b':''}">
+                                            <div class="article-header"
+                                                [ngStyle]="{'background-color':data.isOverview?'#c0989b3b':''}">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <h3 class="neni-heading" id="{{data.code}}">{{data.title}}</h3>
+                                                    </div>
+                                                    <div class="col-sm-4 text-right">
+                                                        <a class="ml-2" matTooltip="Copy Link"
+                                                            (click)="copyLink(data.code)"><i class="fa fa-link"></i></a>
+                                                        <a class="ml-2"
+                                                            [ngClass]="{'isDisabled':data.relatedLinks.length==0}"
+                                                            matTooltip="Related Links"
+                                                            (click)="openRelatedLinks(data.id)"><i
+                                                                class="fa fa-info-circle"></i></a>
+                                                        <a class="ml-2" matTooltip="Print">
+                                                            <button class="btn no-padding"
+                                                                [printStyle]="{button : {'border': 'none'}}"
+                                                                printSectionId="{{data.id}}{{data.code}}" ngxPrint><i
+                                                                    class="fa fa-print"></i></button>
+                                                        </a>
+                                                        <a class="ml-2" matTooltip="Export Pdf"
+                                                            (click)="export(data.id+data.code,data.title)"><i
+                                                                class="fa fa-download"></i></a>
+                                                        <a class="ml-2" matTooltip="Bookmark"><i class="fa"
+                                                                (click)="addBookmark(data)"
+                                                                [ngClass]="{'fa-star-o': !data.isBookmarked, 'fa-star': data.isBookmarked }"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="neni-content" *ngIf="data.content!=null">
+                                                <div textToHighlight [innerHtml]="data.content" class="neni-para"
+                                                    [textToHighlight]="searchText" [markjsConfig]="searchConfig"
+                                                    [scrollToFirstMarked]="true">
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="position-section">
+                                <h3 class="position-heading">In this article</h3>
+                                <ng-container *ngFor="let data of chapterWithSections;let i=index">
+                                    <a (click)="scroll(data.code)"
+                                        [ngClass]="{ 'active': fragment.fragmentCopy === data.code}"
+                                        class="position-link article-title"
+                                        id="{{data.code}}"><span>{{data.title}}</span></a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
